@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Replacer Tool</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Image Replacer Tool</h1>
+    <p>Generate the files needed to create a browser extension for replacing images dynamically!</p>
+  </header>
+
+  <section>
+    <h2>How It Works</h2>
+    <p>This tool lets you generate JavaScript, CSS, and a manifest file to create a Chrome extension. Follow the instructions below.</p>
+  </section>
+
+  <section>
+    <h2>Code Preview</h2>
+    <div class="code-container">
+      <h3>JavaScript Code</h3>
+      <pre id="js-code">
+function replaceImages() {
+  const allImages = document.getElementsByTagName("img");
+  for (let i = 0; i < allImages.length; i++) {
+    const imageNumber = (i % 10) + 1;
+    allImages[i].src = \`https://t3chiejack.github.io/Images/\${imageNumber}.png\`;
+  }
+}
+
+const observer = new MutationObserver(replaceImages);
+observer.observe(document.body, { childList: true, subtree: true });
+replaceImages();
+      </pre>
+
+      <h3>Manifest.json</h3>
+      <pre id="manifest-code">
+{
+  "manifest_version": 3,
+  "name": "Image Replacer Tool",
+  "version": "1.0",
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["image-replacer.js"]
+    }
+  ]
+}
+      </pre>
+
+      <h3>CSS</h3>
+      <pre id="css-code">
+body {
+  font-family: Arial, sans-serif;
+}
+header {
+  text-align: center;
+  padding: 20px;
+  background-color: #3498db;
+  color: white;
+}
+h1, h2 {
+  margin: 10px;
+}
+pre {
+  background-color: #f4f4f4;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow-x: auto;
+}
+      </pre>
+    </div>
+  </section>
+
+  <section>
+    <h2>Generate Files</h2>
+    <button onclick="downloadFile('js')">Download JavaScript File</button>
+    <button onclick="downloadFile('manifest')">Download Manifest File</button>
+    <button onclick="downloadFile('css')">Download CSS File</button>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
